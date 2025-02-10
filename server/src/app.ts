@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -6,7 +8,7 @@ const app = express();
 
 // PRIMARY MIDDLEWARES
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || "http://localhose:5173",
+  origin: process.env.CORS_ORIGIN || "http://localhost:5173",
   credentials: true,
 }))
 app.use(express.json({limit: "16kb"}))
@@ -20,8 +22,9 @@ app.get('/', (req, res) => {
   res.status(200).json({msg: "Server is running..."})
 })
 
+import { userRouter } from './routes/user.routes';
 // ROUTES
-
+app.use("/api/users", userRouter);
 
 
 
